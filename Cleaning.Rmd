@@ -1,0 +1,43 @@
+---
+title: "Cleaning"
+author: "Henry Stoddard"
+date: "12/30/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+data = load("./Data/NSDUH_full.RData")
+```
+
+Recoding to make no = 0 and missing = NA, also combining race categories such that Native American, Alaskan Native, Native Hawaiian/Pacific Islander, Asian, and multiracial all combined into category 4 - "other", Hispanic changed to category 3.
+```{r}
+NSDUH_recode =
+  NSDUH_full %>% 
+  mutate(MEDMJNEW = recode(MEDMJST2, "2" = 0, "1" = 1),
+         newcig = recode(ircigfm, "93" = 0, "91" = 0),
+         newalc = recode(iralcfm, "93" = 0, "91" = 0),
+         newrace = recode(NEWRACE2, "1" = 1, "2" = 2, "7" = 3, "3" = 4, "4" = 4, "5" = 4, "6" = 4))
+```
+
+NOTE: age is categorical 1-17, 7=18 years old so we will exclude those where age2 < 7
+IRSEX left as is, 1= MALE, 2 = FEMALE
+
+
+Checking missingness
+```{r}
+skimr::skim(NSDUH_recode)
+```
+
+Dropping old vars and removing those with age < 18 and saving new file for analysis
+```{r}
+NSDUH_final = 
+  NSDUH_recode %>% 
+  select(-MEDMJST2, -ircigfm, -iralcfm, -NEWRACE2) %>% 
+  filter(AGE2 > 6)
+
+skimr::skim(NSDUH_final)
+
+save(NSDUH_final, file = "./Data/NSDUH_final.RData")
+```
+

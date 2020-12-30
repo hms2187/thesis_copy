@@ -1,0 +1,53 @@
+---
+title: "Thesis_Import_Merge"
+author: "Henry Stoddard"
+date: "12/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+NSDUH_2015 = load("./Data/NSDUH_2015.RData")
+NSDUH_2016 = load("./Data/NSDUH_2016.RData")
+NSDUH_2017 = load("./Data/NSDUH_2017.RData")
+NSDUH_2018 = load("./Data/NSDUH_2018.RData")
+NSDUH_2019 = load("./Data/NSDUH_2019.RData")
+```
+
+All data has now been loaded in, each year an individual dataset named NSDUH_Year.
+Now Making smaller datasets with only necessary variables.
+```{r}
+NSDUH_2015_small =
+  PUF2015_021518 %>% 
+  subset(select = c(QUESTID2, MEDMJST2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10))
+
+NSDUH_2016_small =
+  PUF2016_022818 %>% 
+  subset(select = c(QUESTID2, MEDMJST2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10))
+
+NSDUH_2017_small =
+  PUF2017_100918 %>% 
+  subset(select = c(QUESTID2, MEDMJST2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10))
+
+NSDUH_2018_small =
+  PUF2018_100819 %>% 
+  subset(select = c(QUESTID2, MEDMJPA2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10)) %>% 
+  rename(MEDMJST2 = MEDMJPA2)
+
+NSDUH_2019_small =
+  PUF2019_100920 %>% 
+  subset(select = c(QUESTID2, MEDMJPA2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10))%>% 
+  rename(MEDMJST2 = MEDMJPA2)
+```
+
+Merging all datasets together
+```{r}
+NSDUH_full =
+  bind_rows(NSDUH_2015_small, NSDUH_2016_small, NSDUH_2017_small, NSDUH_2018_small, NSDUH_2019_small, .id = "Year")
+```
+
+Saving merged dataset for cleaning and analysis
+```{r}
+save(NSDUH_full, file = "./Data/NSDUH_full.RData")
+```
+
