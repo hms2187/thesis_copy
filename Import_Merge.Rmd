@@ -19,24 +19,24 @@ Now Making smaller datasets with only necessary variables.
 ```{r}
 NSDUH_2015_small =
   PUF2015_021518 %>% 
-  subset(select = c(QUESTID2, MEDMJST2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10))
+  subset(select = c(QUESTID2, MEDMJST2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10, ANALWT_C, VESTR, VEREP))
 
 NSDUH_2016_small =
   PUF2016_022818 %>% 
-  subset(select = c(QUESTID2, MEDMJST2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10))
+  subset(select = c(QUESTID2, MEDMJST2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10, ANALWT_C, VESTR, VEREP))
 
 NSDUH_2017_small =
   PUF2017_100918 %>% 
-  subset(select = c(QUESTID2, MEDMJST2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10))
+  subset(select = c(QUESTID2, MEDMJST2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10, ANALWT_C, VESTR, VEREP))
 
 NSDUH_2018_small =
   PUF2018_100819 %>% 
-  subset(select = c(QUESTID2, MEDMJPA2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10)) %>% 
+  subset(select = c(QUESTID2, MEDMJPA2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10, ANALWT_C, VESTR, VEREP)) %>% 
   rename(MEDMJST2 = MEDMJPA2)
 
 NSDUH_2019_small =
   PUF2019_100920 %>% 
-  subset(select = c(QUESTID2, MEDMJPA2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10))%>% 
+  subset(select = c(QUESTID2, MEDMJPA2, ircigfm, iralcfm, AGE2, irsex, NEWRACE2, PDEN10, ANALWT_C, VESTR, VEREP))%>% 
   rename(MEDMJST2 = MEDMJPA2)
 ```
 
