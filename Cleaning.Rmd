@@ -29,12 +29,11 @@ Checking missingness
 skimr::skim(NSDUH_recode)
 ```
 
-Dropping old vars and removing those with age < 18 and saving new file for analysis
+Dropping old vars and saving new file for analysis
 ```{r}
 NSDUH_final = 
   NSDUH_recode %>% 
-  select(-MEDMJST2, -ircigfm, -iralcfm, -NEWRACE2) %>% 
-  filter(AGE2 > 6)
+  select(-MEDMJST2, -ircigfm, -iralcfm, -NEWRACE2)
 
 skimr::skim(NSDUH_final)
 
