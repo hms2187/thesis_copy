@@ -29,7 +29,7 @@ Checking missingness
 skimr::skim(NSDUH_recode)
 ```
 
-Dropping old vars and saving new file for analysis
+Dropping old vars and saving new variables as correct type, then saving file for analysis
 ```{r}
 NSDUH_final = 
   NSDUH_recode %>% 
@@ -37,6 +37,15 @@ NSDUH_final =
 
 skimr::skim(NSDUH_final)
 
-save(NSDUH_final, file = "./Data/NSDUH_final.RData")
+NSDUH_analysis = 
+  NSDUH_final %>% 
+  mutate(Year = as.numeric(Year),
+         irsex = as.factor(irsex),
+         PDEN10 = as.factor(PDEN10),
+         MEDMJNEW = as.factor(MEDMJNEW),
+         newrace = as.factor(newrace))
+
+save(NSDUH_analysis, file = "./Data/NSDUH_analysis.RData")
+write.csv(NSDUH_analysis, file = "NSDUH_analysis.csv")
 ```
 

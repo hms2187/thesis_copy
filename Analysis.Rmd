@@ -1,0 +1,27 @@
+---
+title: "Analysis"
+author: "Henry Stoddard"
+date: "1/13/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(survey)
+library(RSQLite)
+data = load("./Data/NSDUH_final.RData")
+```
+
+##Making survey design object
+```{r}
+survey_design = 
+  svydesign(id = ~NSDUH_final$verep, strata = ~NSDUH_final$vestr,
+            weights = ~NSDUH_final$ANALWT_C, nest = T, data = NSDUH_final)
+```
+
+#Estimating Means
+
+```{r}
+svymean(~NSDUH_final$AGE2, design = subset(survey_design, NSDUH_final$AGE2 >= 7))
+```
+
