@@ -22,6 +22,9 @@ survey_design =
 #Estimating Means
 
 ```{r}
-svymean(~NSDUH_final$AGE2, design = subset(survey_design, NSDUH_final$AGE2 >= 7))
+svymean(~NSDUH_final$AGE2, design = survey_design)
+svymean(~NSDUH_final$AGE2, design = subset(survey_design, NSDUH_final$AGE2 > 6))
 ```
 
+##ended up quitting here
+Returning to sas to use known code because this isn't working.
