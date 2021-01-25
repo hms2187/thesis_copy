@@ -11,6 +11,10 @@ data = load("./Data/NSDUH_full.RData")
 ```
 
 Recoding to make no = 0 and missing = NA, also combining race categories such that Native American, Alaskan Native, Native Hawaiian/Pacific Islander, Asian, and multiracial all combined into category 4 - "other", Hispanic changed to category 3.
+1 = white
+2 = black
+3 = hispanic
+4 = other
 ```{r}
 NSDUH_recode =
   NSDUH_full %>% 
