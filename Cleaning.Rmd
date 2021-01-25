@@ -20,7 +20,7 @@ NSDUH_recode =
          newrace = recode(NEWRACE2, "1" = 1, "2" = 2, "7" = 3, "3" = 4, "4" = 4, "5" = 4, "6" = 4))
 ```
 
-NOTE: age is categorical 1-17, 7=18 years old so we will exclude those where age2 < 7
+NOTE: catage is categorical 1 = 12-17, 2=18-25, 3 = 26-34, 4 = 35+ so we will exclude those where catage =1 in later analysis
 IRSEX left as is, 1= MALE, 2 = FEMALE
 
 
