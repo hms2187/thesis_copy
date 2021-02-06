@@ -4,7 +4,7 @@ author: "Henry Stoddard"
 date: "12/28/2020"
 output: html_document
 ---
-
+##Import
 ```{r setup, include=FALSE}
 library(tidyverse)
 NSDUH_2015 = load("./Data/NSDUH_2015.RData")
@@ -14,6 +14,7 @@ NSDUH_2018 = load("./Data/NSDUH_2018.RData")
 NSDUH_2019 = load("./Data/NSDUH_2019.RData")
 ```
 
+##Drop
 All data has now been loaded in, each year an individual dataset named NSDUH_Year.
 Now Making smaller datasets with only necessary variables.
 ```{r}
@@ -40,12 +41,14 @@ NSDUH_2019_small =
   rename(MEDMJST2 = MEDMJPA2)
 ```
 
-Merging all datasets together
+##Merge
+Merging all datasets together. Year var is now 1-5, 1 being 2015.
 ```{r}
 NSDUH_full =
   bind_rows(NSDUH_2015_small, NSDUH_2016_small, NSDUH_2017_small, NSDUH_2018_small, NSDUH_2019_small, .id = "Year")
 ```
 
+##Save
 Saving merged dataset for cleaning and analysis
 ```{r}
 save(NSDUH_full, file = "./Data/NSDUH_full.RData")

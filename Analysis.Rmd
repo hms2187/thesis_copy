@@ -9,21 +9,23 @@ output: html_document
 library(tidyverse)
 library(survey)
 library(RSQLite)
-data = load("./Data/NSDUH_final.RData")
+data = load("./Data/NSDUH_analysis.RData")
 ```
 
 ##Making survey design object
 ```{r}
 survey_design = 
-  svydesign(id = ~NSDUH_final$verep, strata = ~NSDUH_final$vestr,
-            weights = ~NSDUH_final$ANALWT_C, nest = T, data = NSDUH_final)
+  svydesign(id = ~verep, strata = ~vestr,
+            weights = ~ANALWT_C, nest = T, data = NSDUH_analysis)
 ```
 
 #Estimating Means
 
 ```{r}
-svymean(~NSDUH_final$AGE2, design = survey_design)
-svymean(~NSDUH_final$AGE2, design = subset(survey_design, NSDUH_final$AGE2 > 6))
+svymean(~NSDUH_analysis$catage, design = survey_design)
+svymean(~newcig, design = subset(survey_design, catage > 1))
+svymean(~NSDUH_analysis$newcig, design = survey_design)
+
 ```
 
 ##ended up quitting here
